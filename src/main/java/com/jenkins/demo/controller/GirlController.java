@@ -35,7 +35,6 @@ public class GirlController {
         if (bindingResult.hasErrors()) {
             return bindingResult.getFieldError().getDefaultMessage();
         }
-        System.out.println("fkjenwiubfeiuewbfeiuewbi");
         return service.save(girl);
     }
 

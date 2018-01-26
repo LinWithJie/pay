@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 /**
  * @author created by BangZhuLi
  * @date 2018/1/25  17:58
@@ -29,6 +31,8 @@ public class PayUtil {
 
 
     public String pay(PayParamsDTO payParamsDTO) throws AlipayApiException{
+        String outTradeNo = UUID.randomUUID().toString();
+        payParamsDTO.setOutTradeNo(outTradeNo);
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();//创建API对应的request
         alipayRequest.setReturnUrl(returnUrl);
         alipayRequest.setNotifyUrl(notifyUrl);//在公共参数中设置回跳和通知地址

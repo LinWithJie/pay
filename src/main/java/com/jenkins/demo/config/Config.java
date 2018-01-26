@@ -2,6 +2,7 @@ package com.jenkins.demo.config;
 
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,19 +14,20 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConfigurationProperties(prefix = "alipay")
+@Data
 public class Config {
-    private String APP_ID;
-    private String APP_PRIVATE_KEY;
-    private String CHARSET;
-    private String ALIPAY_PUBLIC_KEY;
+    private String appId;
+    private String appPrivateKey;
+    private String charset;
+    private String alipayPublicKey;
 
 
     @Bean
     public AlipayClient getAlipayClient(){
         return new DefaultAlipayClient("https://openapi.alipaydev.com/gateway.do"
-                , APP_ID, APP_PRIVATE_KEY
-                , "json", CHARSET
-                , ALIPAY_PUBLIC_KEY
+                , appId, appPrivateKey
+                , "json", charset
+                , alipayPublicKey
                 , "RSA2");
     }
 }

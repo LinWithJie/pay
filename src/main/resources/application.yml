@@ -12,8 +12,9 @@ spring:
   thymeleaf:
     cache: false
     mode: LEGACYHTML5
+    check-template: false
 server:
-  port: 8888
+  port: 8088
   context-path: /pay
 
 alipay:
@@ -23,3 +24,4 @@ alipay:
   alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA66T+R0ls9C2SyhbXN9XDSWNGg0FQScsOFIepb9a/sYPgvg23TDTyBr7jEsm9ovGO6QQEuZO5xwCvi1FNB81Rw+mBv8pazjlNJRRrlh2wrre/2HnEEsVbFef1XuGQkF+Pn41RuYWH2LOYZs1XstVbDndUvKVZy1YyBXquVb7pVP/oUPFEddV/tHQtJurK41r9gfvaAcMZhDzSGjjXnAkJ0LYkGS8y0jha7P9AKLDtKq3TPVqbf2N/REZ1LRMXrdBXVhuFaNyDK8YCJBxlWVDAI+0s2NZwrkbRtQtg8SiBx4ary3gZPPhkKX3yyfzmDyadgBdf/qm3zBYCq7iROrd03wIDAQAB
   returnUrl: http://www.baidu.com
   notifyUrl: http://domain.com/CallBack/notify_url.jsp
+

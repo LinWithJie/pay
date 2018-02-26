@@ -1,5 +1,9 @@
 package com.jenkins.demo.handler;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -10,6 +14,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class Handler {
 
+
+    @ExceptionHandler(value = AuthorizationException.class)
+    public void handleAuthorizationException(AuthorizationException e) {
+        System.out.println("用户未登录");
+    }
+
+    @ExceptionHandler(value = UnauthenticatedException.class)
+    public void handleUnauthenticatedException(UnauthenticatedException e) {
+        e.printStackTrace();
+    }
 
     @ExceptionHandler(value = Exception.class)
     public void handlerException(Exception e) {

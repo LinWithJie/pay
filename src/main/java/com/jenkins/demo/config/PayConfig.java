@@ -6,6 +6,11 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.DelegatingFilterProxy;
+
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
+import java.util.Enumeration;
 
 /**
  * @author created by BangZhuLi
@@ -15,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "alipay")
 @Data
-public class Config {
+public class PayConfig {
     private String appId;
     private String appPrivateKey;
     private String charset;
@@ -30,4 +35,7 @@ public class Config {
                 , alipayPublicKey
                 , "RSA2");
     }
+
+
+
 }

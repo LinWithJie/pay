@@ -1,13 +1,27 @@
 package com.jenkins.demo.controller;
 
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.alipay.api.AlipayApiException;
+import com.help.shiro.core.remote.PermissionContext;
+import com.help.shiro.core.remote.RemoteServiceInterface;
 import com.jenkins.demo.dto.PayParamsDTO;
+import com.jenkins.demo.util.CookieUtil;
 import com.jenkins.demo.util.PayUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresUser;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
@@ -23,6 +37,9 @@ public class PayController {
 
     @Autowired
     private PayUtil payUtil;
+
+    @Autowired
+    private HttpInvokerProxyFactoryBean remoteService;
 
     @PostMapping("/aliPCPay")
     public void aliPCPay(@RequestParam(value = "totalAmount") String totalAmount,
@@ -40,7 +57,19 @@ public class PayController {
     }
 
     @GetMapping("/test")
-    public String toPay() {
+    @RequiresRoles("admin")
+    public String toPay(HttpServletRequest request, HttpServletResponse response){
         return "/pay";
+    }
+
+    @GetMapping("/remoteTest")
+    @ResponseBody
+    public String remoteTest(@RequestParam("sessionId") String sessionId) {
+        if (remoteService == null) {
+            return "remoteService为空";
+        }
+
+        Session session = ((RemoteServiceInterface)remoteService.getObject()).getSession(sessionId);
+        return session.toString();
     }
 }
